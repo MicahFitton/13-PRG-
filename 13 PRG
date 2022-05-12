@@ -1,0 +1,34 @@
+from tkinter import*
+win1 = Tk()
+win1.geometry("650x430")
+win1.title("Year 10 Maths Quiz.")
+win1.configure()
+counter = 0
+
+def startquiz():
+    def clear_frame():
+        global counter
+        for widgets in win2.winfo_children():   
+            widgets.destroy()
+        counter = counter+1
+        label4 = Button(win2, text = "Question 1",font = "Corbel_Light",fg = "black", bg = "#ffffff", padx = 30, pady = 10).place(x = 260, y = 20)
+        label5 = Label(win2, text = "PLACEHOLDER",font = "Corbel_Light",fg = "black", bg = "#ffffff",).place(x = 280, y= 120)
+        label6 = Button(win2, text = "hee" ,command=clear_frame).place(x =0, y = 0)
+        label7 = Label(win2,text=counter).place(x=0,y=100)
+    win2 = Toplevel(win1)
+    win2.geometry("650x430")
+    win2.title("Year 10 Maths Quiz.")
+    win2.configure()
+    label4 = Button(win2, text = "Question 1",font = "Corbel_Light",fg = "black", bg = "#ffffff", padx = 30, pady = 10).place(x = 260, y = 20)
+    label5 = Label(win2, text = "PLACEHOLDER",font = "Corbel_Light",fg = "black", bg = "#ffffff",).place(x = 280, y= 120)
+    label6 = Button(win2, text = "hee" ,command=clear_frame).place(x =0, y = 0)
+    
+def endquiz():
+    win1.destroy()
+
+label1 = Button(win1, text = "Quiz game" ,font = "Corbel_Light",fg = "black", bg = "#ffffff", padx = 30, pady = 10).place(x = 260, y = 20)
+lable2 = Button(win1, text = "Start quiz",command = startquiz, font ="Corbel_Light", fg= "black", bg = "#ffffff", padx = 30, pady = 3).place(x = 90, y= 310)
+label3 = Button(win1, text = "End quiz", command = endquiz,font = "Corbel_Light", fg = "black", bg = "#ffffff", padx = 30, pady = 3).place(x = 400, y = 310)
+
+
+win1.mainloop()
