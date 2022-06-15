@@ -1,6 +1,8 @@
 # Variables which must be initialised at thje start of the program.
 from tkinter import*
 from random import choice
+from PIL import ImageTk, Image  
+
 win1 = Tk()
 win1.geometry("650x430")
 win1.title("Year 10 Maths Quiz.")
@@ -25,10 +27,9 @@ for loop in range (11):
 
 answerkey = []
 
-Logo = Canvas(win1, width = 650, height = 430, borderwidth = 0)
-img = PhotoImage(file = "Background_1.PNG")
-Logo.create_image(1,1, anchor=NW, image = img)
-Logo.place(x = 0, y = 0)
+
+
+
 
 # Main question screen 
 def startquiz():
@@ -37,6 +38,11 @@ def startquiz():
     win2.geometry("650x430")
     win2.title("Year 10 Maths Quiz.")
     win2.configure()
+    img1 = PhotoImage(file = "Background_2.png")
+    label13 = Label(win2, image = img1 , width = 629, height = 429)
+    label13.place(x = 0, y =0)
+    
+    #Logo.place(x = 0, y = 0)
     global count
 
     #Next question Function
@@ -45,6 +51,7 @@ def startquiz():
         #Needs to be done
         for widgets in win2.winfo_children():   
                 widgets.destroy()
+        
 
         global count
         global state1
@@ -107,11 +114,11 @@ def startquiz():
     def skips():
         for widgets in win2.winfo_children():   
                 widgets.destroy()
-        
+        count = count-1
         check_ans()
         answerkey.pop(correct[counter])
         userans.pop(counter)
-        pass
+
     # First question code must be kept seperate 
     counter = (questions_for_display[count]-1)    
     answerkey.append(correct[counter])
@@ -125,7 +132,7 @@ def startquiz():
     label4 = Button(win2, text = ("Question ",count),font = "Corbel_Light",fg = "black", bg = "#ffffff", padx = 30, pady = 10).place(x = 260, y = 20)
     label5 = Label(win2, text = question[counter],font = "Corbel_Light",fg = "black", bg = "#ffffff",).place(x = 280, y= 120)
     label6 = Button(win2, text = "Next question" ,command=check_ans,state = state1,font = "Corbel_Light", fg = "black",bg = "#ffffff",padx = 30, pady = 3).place(x=90,y=310)
-    label12 = Button(win2, text = "Skip", command=skips, font = "Corbel_Light").place(x = 0, y = 0)
+    #label12 = Button(win2, text = "Skip", command=skips, font = "Corbel_Light").place(x = 0, y = 0)
 
 
 # Ends the entire program. 
