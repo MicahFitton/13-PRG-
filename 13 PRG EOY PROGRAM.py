@@ -27,9 +27,9 @@ for loop in range (11):
 
 answerkey = []
 
-
-
-
+# Background image code
+background= PhotoImage(file='Background_1.png')
+img_label= Label(image=background)
 
 # Main question screen 
 def startquiz():
@@ -38,9 +38,7 @@ def startquiz():
     win2.geometry("650x430")
     win2.title("Year 10 Maths Quiz.")
     win2.configure()
-    img1 = PhotoImage(file = "Background_2.png")
-    label13 = Label(win2, image = img1 , width = 629, height = 429)
-    label13.place(x = 0, y =0)
+    button2= Label(win2, image=background ,borderwidth=0,).place(x = 0, y= 0)
     
     #Logo.place(x = 0, y = 0)
     global count
@@ -51,33 +49,32 @@ def startquiz():
         #Needs to be done
         for widgets in win2.winfo_children():   
                 widgets.destroy()
-        
-
+        button3= Label(win2, image=background ,borderwidth=0,).place(x = 0, y= 0)
         global count
         global state1
-
         counter = (questions_for_display[count] -1)
         count = count + 1
         answerkey.append(correct[counter])
         userans.append(var1.get())
 
         #Question Buttons
-        r1 = Radiobutton(win2, text = radiobutton1[counter], variable= var1, value = 1).place(x = 190, y = 200) 
-        r2 = Radiobutton(win2, text=  radiobutton2[counter], variable= var1, value = 2).place(x = 300, y= 200)
-        r3 = Radiobutton(win2, text = radiobutton3[counter], variable= var1, value = 3).place(x = 410, y = 200)
+        r1 = Radiobutton(win2, text = radiobutton1[counter], variable= var1, value = 1, font = "times",bg = "#ffffff").place(x = 190, y = 200) 
+        r2 = Radiobutton(win2, text=  radiobutton2[counter], variable= var1, value = 2, font = "times",bg = "#ffffff").place(x = 300, y= 200)
+        r3 = Radiobutton(win2, text = radiobutton3[counter], variable= var1, value = 3, font = "times",bg = "#ffffff").place(x = 410, y = 200)
         label7 = Label(win2, text = correct[counter]).place(x = 0,y = 0)
-        label4 = Button(win2, text = ("Question ",count),font = "Corbel_Light",fg = "black", bg = "#ffffff", padx = 30, pady = 10).place(x = 260, y = 20)
-        label5 = Label(win2, text = question[counter],font = "Corbel_Light",fg = "black", bg = "#ffffff",).place(x = 280, y= 120)
-        label6 = Button(win2, text = "Next question" ,command=check_ans,state = state1,font = "Corbel_Light", fg = "black",bg = "#ffffff",padx = 30, pady = 3).place(x =90, y =310 )
+        label4 = Button(win2, text = ("Question ",count),font = "times",fg = "black", bg = "#ffffff", padx = 30, pady = 10).place(x = 260, y = 20)
+        label5 = Label(win2, text = question[counter],font = "times",fg = "black", bg = "#ffffff",).place(x = 280, y= 120)
+        label6 = Button(win2, text = "Next question" ,command=check_ans,state = state1,font = "times", fg = "black",bg = "#ffffff",padx = 30, pady = 3).place(x =90, y =310 )
         label10 = Label(win2, text = userans).place(x = 0, y = 60)
         label11 = Label(win2, text = answerkey).place(x = 0, y =30)
-        label12 = Button(win2, text = "Skip", command=skips, font = "Corbel_Light").place(x = 0, y = 0)
+        #label12 = Button(win2, text = "Skip", command=skips, font = "Corbel_Light").place(x = 0, y = 0)
         
         #Stops the program after 10 questions have been answered
         if count == 11:
             state1 = DISABLED
             for label6 in win2.winfo_children():
                 label6.destroy()
+            button5= Label(win2, image=background ,borderwidth=0,).place(x = 0, y= 0)
             answerkey.pop(10)
 
             label8 = Label(win2, text= "Press button to view score").place(x= 260, y= 20)
@@ -89,7 +86,8 @@ def startquiz():
     def calc_score():
         for widgets in win1.winfo_children():   
                 widgets.destroy()
-    
+        button4= Label(win1, image=background ,borderwidth=0,).place(x = 0, y= 0)
+
         win2.destroy()
         counter1 = 0
         score = 0
@@ -106,9 +104,10 @@ def startquiz():
             label12 = Label(win1, text = "Achieved").place(x = 0, y = 0)        
         elif score <8:
             label12 = Label(win1, text = "Merit").place(x = 0, y = 0)
-        elif score <10:
+        elif score <11:
             label12 = Label(win1, text = "Excellence").place(x = 0, y = 0)
-        label3 = Button(win1, text = "End quiz", command = endquiz,font = "Corbel_Light", fg = "black", bg = "#ffffff", padx = 30, pady = 3).place(x = 400, y = 310)
+
+        label3 = Button(win1, text = "End quiz", command = endquiz,font = "times", fg = "black", bg = "#ffffff", padx = 30, pady = 3).place(x = 400, y = 310)
     
     # Skip function
     def skips():
@@ -124,28 +123,26 @@ def startquiz():
     answerkey.append(correct[counter])
     
     count = count+1
-    
-    r1 = Radiobutton(win2, text = radiobutton1[counter], variable= var1, value = 1).place(x = 190, y = 200) 
-    r2 = Radiobutton(win2, text=  radiobutton2[counter], variable= var1, value = 2).place(x = 300, y= 200)
-    r3 = Radiobutton(win2, text = radiobutton3[counter], variable= var1, value = 3).place(x = 410, y = 200)
+    qnum = ("Question "+str(count))
+    r1 = Radiobutton(win2, text = radiobutton1[counter], variable= var1, value = 1, font = "times",bg = "#ffffff").place(x = 190, y = 200) 
+    r2 = Radiobutton(win2, text=  radiobutton2[counter], variable= var1, value = 2, font = "times",bg = "#ffffff").place(x = 300, y= 200)
+    r3 = Radiobutton(win2, text = radiobutton3[counter], variable= var1, value = 3, font = "times",bg = "#ffffff").place(x = 410, y = 200)
     label7 = Label(win2, text = correct[counter]).place(x = 0,y = 0)
-    label4 = Button(win2, text = ("Question ",count),font = "Corbel_Light",fg = "black", bg = "#ffffff", padx = 30, pady = 10).place(x = 260, y = 20)
-    label5 = Label(win2, text = question[counter],font = "Corbel_Light",fg = "black", bg = "#ffffff",).place(x = 280, y= 120)
-    label6 = Button(win2, text = "Next question" ,command=check_ans,state = state1,font = "Corbel_Light", fg = "black",bg = "#ffffff",padx = 30, pady = 3).place(x=90,y=310)
+    label4 = Button(win2, text = qnum ,font = "times",fg = "black", bg = "#ffffff", padx = 30, pady = 10).place(x = 260, y = 20)
+    label5 = Label(win2, text = question[counter],font = "times",fg = "black", bg = "#ffffff",).place(x = 280, y= 120)
+    label6 = Button(win2, text = "Next question" ,command=check_ans,state = state1,font = "times", fg = "black",bg = "#ffffff",padx = 30, pady = 3).place(x=90,y=310)
     #label12 = Button(win2, text = "Skip", command=skips, font = "Corbel_Light").place(x = 0, y = 0)
 
 
 # Ends the entire program. 
 def endquiz():
-
     win1.destroy()
 
 # 1st screen labels
-label1 = Button(win1, text = "Quiz game" ,font = "Corbel_Light",fg = "black", bg = "#ffffff", padx = 30, pady = 10).place(x = 260, y = 20)
-lable2 = Button(win1, text = "Start quiz",command = startquiz, state = state1, font ="Corbel_Light", fg= "black", bg = "#ffffff", padx = 30, pady = 3).place(x = 90, y= 310)
-label3 = Button(win1, text = "End quiz", command = endquiz,font = "Corbel_Light", fg = "black", bg = "#ffffff", padx = 30, pady = 3).place(x = 400, y = 310)
-
-
+button1= Label(win1, image=background ,borderwidth=0,).place(x = 0, y= 0)
+label1 = Button(win1, text = "Quiz game" ,font = "times",fg = "black", bg = "#ffffff", padx = 30, pady = 10).place(x = 260, y = 20)
+lable2 = Button(win1, text = "Start quiz",command = startquiz, state = state1, font ="times", fg= "black", bg = "#ffffff", padx = 30, pady = 3).place(x = 90, y= 310)
+label3 = Button(win1, text = "End quiz", command = endquiz,font = "times", fg = "black", bg = "#ffffff", padx = 30, pady = 3).place(x = 400, y = 310)
 
 # Does tkinter
 win1.mainloop()
