@@ -2,12 +2,12 @@
 from tkinter import*
 from random import choice
 from PIL import ImageTk, Image
-
+state1 = NORMAL
 win1 = Tk()
 win1.geometry("650x430")
 win1.title("Year 10 Maths Quiz.")
 win1.configure()
-state1 = NORMAL
+
 count = 0
 var1 = IntVar()
 
@@ -15,36 +15,36 @@ var1 = IntVar()
 # Questions, Answer in the radiobuttons and the answer key in the correct
 question = ["The diameter of a wheel of a rickshaw is 82.6cm. If the wheel\
             makes 130 rotation in one minute, how long\
-will it take for the rickshaw\
-            to cover a distance of 30373.2metres? (assume π=22/7)",
+            will it take for the rickshaw\
+ to cover a distance of 30373.2metres? (assume π=22/7)",
             "What is the sum of all natural numbers between 110 and 260 which\
-            are divisible by 9?",
+ are divisible by 9?",
             "Matthew throws a dice. What is the probability that he will roll\
-            a number more than 2?",
+ a number more than 2?",
             "In a triangle, ABC, P, Q and R are the midpoints of sides BC,\
-            CA, and AB respectively. If AC = 19cm, BC = 24cm and AB = 21cm,\
-            find the perimeter of the quadrilateral ARPQ.",
+ CA, and AB respectively. If AC = 19cm, BC = 24cm and AB = 21cm,\
+ find the perimeter of the quadrilateral ARPQ.",
             "A square and an equilateral triangle have the same perimeter.\
-            The diagonal of the square is 15cm. Find the area of the triangle."
+ The diagonal of the square is 15cm. Find the area of the triangle."
             "There are 90 numbers. Each number is subtracted from 91 and the\
-            mean of the numbers so obtained is found to be -8.8. Find\
-            the mean of the given numbers.",
-            "A natural number, when increased by 2, equals 195 times its\
-            reciprocal. Find the number.",
+ mean of the numbers so obtained is found to be -8.8. Find\
+ the mean of the given numbers.",
+            "A natural number, when inc reased by 2, equals 195 times its\
+ reciprocal. Find the number.",
             "If sinθ + 2cosθ = 1, find the value of 2sinθ - cosθ.",
             "Find the area of the rhombus in which each side is 25cm long\
-            and one of whose diagonals is 14cm",
+ and one of whose diagonals is 14cm",
             "The area of a triangle with sides 13cm, 12cm, 5cm is:",
             "Ben plays 11 games of golf and scores the following:79, 70,83, 76,\
-            88, 70, 83, 88, 74, 89 and 80. Find the mean of his scores?",
+ 88, 70, 83, 88, 74, 89 and 80. Find the mean of his scores?",
             "Paige cut a cylindrically shaped candle, having a diameter\
-            and height as 6cm and 12cm respectively, into 4 equal parts. She\
-            then took a piece and rolled it into 2 similar balls. What\
-            would be the radius of the ball?",
+ and height as 6cm and 12cm respectively, into 4 equal parts. She\
+ then took a piece and rolled it into 2 similar balls. What\
+ would be the radius of the ball?",
             "A rope is tightly stretched and attached from top of a\
-            vertical tower to the ground. The angle made by rope with\
-            ground is 45∘.If length of the rope is 10√2m, find\
-            height of the tower.",
+ vertical tower to the ground. The angle made by rope with\
+ ground is 45∘.If length of the rope is 10√2m, find\
+ height of the tower.",
             "A point of the form (a, 0) lies on the line:"]
 
 radiobutton1 = ["90", "2951", "1/6", "40cm", "150    ", "102.8", "13",
@@ -58,10 +58,7 @@ userans = []
 
 # Randomizer for the questions, creates a list called questions_for_display
 # which is then used in the counter variable to print a certain question lower
-questions_for_display = []
-for loop in range(11):
-    my_rando_int = choice(list(set(range(0, 13)) - set(questions_for_display)))
-    questions_for_display.append(my_rando_int)
+
 
 answerkey = []
 
@@ -72,7 +69,13 @@ img_label = Label(image=background)
 
 # Main question screen
 def startquiz():
-
+    questions_for_display = []
+    for loop in range(11):
+        my_rando_int = choice(list(set(range(0, 13)) - set(questions_for_display)))
+        questions_for_display.append(my_rando_int)
+    state1 = NORMAL
+    answerkey.clear()
+    userans.clear()
     win2 = Toplevel(win1)
     win2.geometry("650x430")
     win2.title("Year 10 Maths Quiz.")
@@ -80,6 +83,8 @@ def startquiz():
     button2 = Label(win2, image=background, borderwidth=0).place(x=0, y=0)
 
     global count
+    count = 0
+    counter = 0
 
     # Next question Function
     def check_ans():
@@ -90,6 +95,7 @@ def startquiz():
         button3 = Label(win2, image=background, borderwidth=0).place(x=0, y=0)
         global count
         global state1
+        state1 = NORMAL
         counter = (questions_for_display[count] - 1)
         count = count + 1
         answerkey.append(correct[counter])
@@ -152,7 +158,7 @@ def startquiz():
             else:
                 score = score
             counter1 = counter1 + 1
-            print(score)
+            
 
         if score < 4:
             label12 = Label(win1, text="Not achieved").place(x=0, y=0)
@@ -165,6 +171,9 @@ def startquiz():
         label3 = Button(win1, text="End quiz", command=endquiz, font="times",
                         fg="black", bg="#ffffff",
                         padx=30, pady=3).place(x=400, y=310)
+        restart = Button(win1, text="Restart Quiz", command=startquiz, 
+                        font="times", fg="black", bg="#ffffff",
+                        padx=30, pady=3).place(x=380, y=310) 
 
     # First question code must be kept seperate
     counter = (questions_for_display[count]-1)
