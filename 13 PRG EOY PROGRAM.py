@@ -1,7 +1,7 @@
-# Variables which must be initialised at thje start of the program.
+# Variables which must be initialised at the start of the program.
 from tkinter import*
 from random import choice
-from PIL import ImageTk, Image
+#from PIL import ImageTk, Image
 state1 = NORMAL
 win1 = Tk()
 win1.geometry("650x430")
@@ -56,8 +56,7 @@ radiobutton3 = ["87", "2949", "4/6", "45cm", "p-3^-1 ", "99.8 ", "14",
 correct = [1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2]
 userans = []
 
-# Randomizer for the questions, creates a list called questions_for_display
-# which is then used in the counter variable to print a certain question lower
+
 
 
 answerkey = []
@@ -69,6 +68,8 @@ img_label = Label(image=background)
 
 # Main question screen
 def startquiz():
+    # Randomizer for the questions, creates a list called questions_for_display
+    # which is then used in the counter variable to print a certain question lower
     questions_for_display = []
     for loop in range(11):
         my_rando_int = choice(list(set(range(0, 13)) - set(questions_for_display)))
@@ -112,7 +113,6 @@ def startquiz():
         r3 = Radiobutton(win2, text=radiobutton3[counter], variable=var1,
                          value=3, font="times",
                          bg="#ffffff").place(x=410, y=260)
-        label7 = Label(win2, text=correct[counter]).place(x=0, y=0)
         label4 = Button(win2, text=(qnum), font="times", fg="black",
                         bg="#ffffff", padx=30, pady=10).place(x=260, y=20)
         label5 = Label(win2, text=question[counter], font="times",
@@ -122,8 +122,10 @@ def startquiz():
                         state=state1, font="times",
                         fg="black", bg="#9cc2ff",
                         padx=30, pady=3).place(x=90, y=310)
-        label10 = Label(win2, text=userans).place(x=0, y=60)
-        label11 = Label(win2, text=answerkey).place(x=0, y=30)
+        label14 = Button(win2, text="Skip", command=skips, font="times", padx=60,
+                     pady=3, bg="#9cc2ff", fg="black").place(x=400, y=310)
+        #label10 = Label(win2, text=userans).place(x=0, y=60)
+        #label11 = Label(win2, text=answerkey).place(x=0, y=30)
 
         # Stops the program after 10 questions have been answered
         if count == 11:
@@ -136,10 +138,11 @@ def startquiz():
             label8 = Label(win2,
                            text="Press button to view score"
                            ).place(x=260, y=20)
-            label9 = Button(win2, text="Check Score",
-                            command=calc_score).place(x=90, y=310)
-            label10 = Label(win2, text=userans).place(x=0, y=0)
-            label11 = Label(win2, text=answerkey).place(x=0, y=30)
+            label9 = Button(win2, text="Check Score", command=calc_score, 
+                            padx=30, pady=10, 
+                            fg="black", bg="#9cc2ff").place(x=220, y=310)
+            #label10 = Label(win2, text=userans).place(x=0, y=0)
+            #label11 = Label(win2, text=answerkey).place(x=0, y=30)
 
     # Calculates the score and displays it on the 1st screen
     def calc_score():
@@ -148,6 +151,11 @@ def startquiz():
                 widgets.destroy()
         button4 = Label(win1, image=background,
                         borderwidth=0,).place(x=0, y=0)
+
+        na=4
+        a=6
+        m=8
+        e=11
 
         win2.destroy()
         counter1 = 0
@@ -160,17 +168,31 @@ def startquiz():
             counter1 = counter1 + 1
             
 
-        if score < 4:
-            label12 = Label(win1, text="Not achieved").place(x=0, y=0)
-        elif score < 6:
-            label12 = Label(win1, text="Achieved").place(x=0, y=0)
-        elif score < 8:
-            label12 = Label(win1, text="Merit").place(x=0, y=0)
-        elif score < 11:
-            label12 = Label(win1, text="Excellence").place(x=0, y=0)
+        if score < na:
+            label12 = Button(win1, text="Not achieved "+str(score)+"/"+"10", 
+                    font="times", fg="black",
+                    bg="#ffffff", padx=30, pady=10).place(x=220, y=200)
+            label20 = Button(win1, text="Im sure you can do better next time", 
+                    font="times", fg="black",
+                    bg="#ffffff", padx=30, pady=10).place(x=220, y=240)
+        elif score < a:
+            label12 = Button(win1, text="Achieved", font="times", fg="black",
+                    bg="#ffffff", padx=30, pady=10).place(x=220, y=200)
+            label20 = Button(win1, text="Good work", font="times", fg="black",
+                    bg="#ffffff", padx=30, pady=10).place(x=220, y=240)
+        elif score < m:
+            label12 = Button(win1, text="Merit", font="times", fg="black",
+                    bg="#ffffff", padx=30, pady=10).place(x=220, y=200)
+            label20 = Button(win1, text="Very well done", font="times", fg="black",
+                    bg="#ffffff", padx=30, pady=10).place(x=220, y=240)
+        elif score < e:
+            label12 = Button(win1, text="Excellence", font="times", fg="black",
+                    bg="#ffffff", padx=30, pady=10).place(x=220, y=200)
+            label20 = Button(win1, text="Incredible", font="times", fg="black",
+                    bg="#ffffff", padx=30, pady=10).place(x=220, y=240)
         label3 = Button(win1, text="End quiz", command=endquiz, font="times",
                         fg="black", bg="#ffffff",
-                        padx=30, pady=3).place(x=400, y=310)
+                        padx=30, pady=3).place(x=220, y=310)
         restart = Button(win1, text="Restart Quiz", command=startquiz, 
                         font="times", fg="black", bg="#ffffff",
                         padx=30, pady=3).place(x=380, y=310) 
@@ -203,16 +225,17 @@ def startquiz():
         global count
         for widgets in win2.winfo_children():
                 widgets.destroy()
-        check_ans()
-
         answerkey.pop(correct[counter])
         userans.pop(counter)
         answerkey.append(correct[counter], 13)
+        check_ans()
+
+        
     label14 = Button(win2, text="Skip", command=skips, font="times", padx=60,
                      pady=3, bg="#9cc2ff", fg="black").place(x=400, y=310)
 
 
-# Ends the entire program.
+# Ends the entire program.5
 def endquiz():
     win1.destroy()
 
