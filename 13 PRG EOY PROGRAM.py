@@ -11,7 +11,6 @@ win1.configure()
 count = 0
 var1 = IntVar()
 
-
 # Questions, Answer in the radiobuttons and the answer key in the correct
 question = ["The diameter of a wheel of a rickshaw is 82.6cm. If the wheel\
             makes 130 rotation in one minute, how long\
@@ -55,12 +54,9 @@ radiobutton3 = ["87", "2949", "4/6", "45cm", "p-3^-1 ", "99.8 ", "14",
                 "0", "336", "34", "85", "2.163cm", "10√2", "x+y=0"]
 correct = [1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2]
 userans = []
-
-
-
-
 answerkey = []
 
+skipcheck = 0
 # Background image code
 background = PhotoImage(file='Background_1.png')
 img_label = Label(image=background)
@@ -74,6 +70,7 @@ def startquiz():
     for loop in range(11):
         my_rando_int = choice(list(set(range(0, 13)) - set(questions_for_display)))
         questions_for_display.append(my_rando_int)
+        print(questions_for_display)
     state1 = NORMAL
     answerkey.clear()
     userans.clear()
@@ -90,12 +87,15 @@ def startquiz():
     # Next question Function
     def check_ans():
 
+        
+
         # Needs to be done
         for widgets in win2.winfo_children():
                 widgets.destroy()
         button3 = Label(win2, image=background, borderwidth=0).place(x=0, y=0)
         global count
         global state1
+        global skipcheck
         state1 = NORMAL
         counter = (questions_for_display[count] - 1)
         count = count + 1
@@ -122,16 +122,17 @@ def startquiz():
                         state=state1, font="times",
                         fg="black", bg="#9cc2ff",
                         padx=30, pady=3).place(x=90, y=310)
-        label14 = Button(win2, text="Skip", command=skips, font="times", padx=60,
+        label14 = Button(win2, text="Skip", command=lambda:[skips()], font="times", padx=60,
                      pady=3, bg="#9cc2ff", fg="black").place(x=400, y=310)
-        #label10 = Label(win2, text=userans).place(x=0, y=60)
-        #label11 = Label(win2, text=answerkey).place(x=0, y=30)
+        label10 = Label(win2, text=userans).place(x=0, y=60)
+        label11 = Label(win2, text=answerkey).place(x=0, y=30)
 
         # Stops the program after 10 questions have been answered
-        if count == 11:
+        if count == (skipcheck+11):
             state1 = DISABLED
             for label6 in win2.winfo_children():
                 label6.destroy()
+            answerkey.pop(10)
             button5 = Label(win2, image=background,
                             borderwidth=0,).place(x=0, y=0)
 
@@ -141,8 +142,8 @@ def startquiz():
             label9 = Button(win2, text="Check Score", command=calc_score, 
                             padx=30, pady=10, 
                             fg="black", bg="#9cc2ff").place(x=220, y=310)
-            #label10 = Label(win2, text=userans).place(x=0, y=0)
-            #label11 = Label(win2, text=answerkey).place(x=0, y=30)
+            label10 = Label(win2, text=userans).place(x=0, y=0)
+            label11 = Label(win2, text=answerkey).place(x=0, y=30)
 
     # Calculates the score and displays it on the 1st screen
     def calc_score():
@@ -201,6 +202,7 @@ def startquiz():
     counter = (questions_for_display[count]-1)
     count = count+1
     qnum = ("Question "+str(count))
+    answerkey.append(correct[counter])
     r1 = Radiobutton(win2, text=radiobutton1[counter],
                      variable=var1, value=1,
                      font="times", bg="#ffffff").place(x=190, y=260)
@@ -222,20 +224,23 @@ def startquiz():
 
     # skip function
     def skips():
-        global count
-        for widgets in win2.winfo_children():
-                widgets.destroy()
-        answerkey.pop(correct[counter])
-        userans.pop(counter)
-        answerkey.append(correct[counter], 13)
+        global counter
+        global skipcheck
+        questions_for_display.append(questions_for_display[count])
+        answerkey.pop(len(answerkey)-1)
+        userans.pop(len(userans)-1)
+        
+
+         
+        skipcheck = skipcheck+1
+        print(skipcheck)
         check_ans()
 
-        
     label14 = Button(win2, text="Skip", command=skips, font="times", padx=60,
                      pady=3, bg="#9cc2ff", fg="black").place(x=400, y=310)
 
 
-# Ends the entire program.5
+# Ends the entire program
 def endquiz():
     win1.destroy()
 
