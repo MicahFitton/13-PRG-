@@ -1,7 +1,7 @@
 # Variables which must be initialised at the start of the program.
 from tkinter import*
 from random import choice
-#from PIL import ImageTk, Image
+from PIL import ImageTk, Image
 state1 = NORMAL
 win1 = Tk()
 win1.geometry("650x430")
